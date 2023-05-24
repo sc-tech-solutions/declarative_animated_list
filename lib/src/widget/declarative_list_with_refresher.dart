@@ -1,7 +1,8 @@
 import 'package:declarative_animated_list/src/algorithm/request.dart';
 import 'package:declarative_animated_list/src/algorithm/result.dart';
 import 'package:declarative_animated_list/src/algorithm/strategy.dart';
-import 'package:declarative_animated_list/src/widget/declarative_list.dart';
+import 'package:declarative_animated_list/src/widget/declarative_list.dart'
+    as declarative_list;
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -10,10 +11,10 @@ class DeclarativeListWithRefresher<T extends Object> extends StatefulWidget {
   final List<T> items;
 
   ///Builder function for inserted items
-  final AnimatedItemBuilder<T> itemBuilder;
+  final declarative_list.AnimatedItemBuilder<T> itemBuilder;
 
   ///Builder function for removed items
-  final AnimatedItemBuilder<T> removeBuilder;
+  final declarative_list.AnimatedItemBuilder<T> removeBuilder;
 
   ///Callback that is used to determine if two given objects are equal. [==]
   ///operator will be used by default.
@@ -149,7 +150,7 @@ class _AnimatedListDifferenceConsumer<T> extends DifferenceConsumer {
   final CustomAnimatedListState state;
   final List<T> oldList;
   final List<T> updatedList;
-  final AnimatedItemBuilder<T> removeBuilder;
+  final declarative_list.AnimatedItemBuilder<T> removeBuilder;
   final Duration? removeDuration;
   final Duration? insertDuration;
 
