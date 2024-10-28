@@ -187,14 +187,17 @@ class _AnimatedListDifferenceConsumer<T> extends DifferenceConsumer {
   }
 
   void _removeItem(final int index) {
-    final AnimatedListRemovedItemBuilder builder =
-        (final BuildContext context, final Animation<double> animation) =>
-            this.removeBuilder(
-              context,
-              oldList[index],
-              index,
-              animation,
-            );
+    Widget builder(
+      final BuildContext context,
+      final Animation<double> animation,
+    ) =>
+        this.removeBuilder(
+          context,
+          oldList[index],
+          index,
+          animation,
+        );
+
     if (removeDuration != null) {
       state.removeItem(index, builder, duration: removeDuration!);
     } else {
@@ -230,7 +233,7 @@ class CustomAnimatedList extends StatefulWidget {
   ///
   /// List items are only built when they're scrolled into view.
   ///
-  /// The [AnimatedListItemBuilder] index parameter indicates the item's
+  /// The [AnimatedItemBuilder] index parameter indicates the item's
   /// position in the list. The value of the index parameter will be between 0
   /// and [initialItemCount] plus the total number of items that have been
   /// inserted with [AnimatedListState.insertItem] and less the total number of
@@ -238,7 +241,7 @@ class CustomAnimatedList extends StatefulWidget {
   ///
   /// Implementations of this callback should assume that
   /// [AnimatedListState.removeItem] removes an item immediately.
-  final AnimatedListItemBuilder itemBuilder;
+  final AnimatedItemBuilder itemBuilder;
 
   /// {@template flutter.widgets.animatedList.initialItemCount}
   /// The number of items the list will start with.
@@ -405,7 +408,7 @@ class CustomAnimatedListState extends State<CustomAnimatedList>
   /// This method's semantics are the same as Dart's [List.remove] method:
   /// it decreases the length of the list by one and shifts all items at or
   /// before [index] towards the beginning of the list.
-  void removeItem(int index, AnimatedListRemovedItemBuilder builder,
+  void removeItem(int index, AnimatedRemovedItemBuilder builder,
       {Duration duration = _kDuration}) {
     _sliverAnimatedListKey.currentState!
         .removeItem(index, builder, duration: duration);
